@@ -1,4 +1,4 @@
-package com.matera.cursoferias.petstore;
+package com.matera.cursoferias.printer;
 
 public interface Printer {
 

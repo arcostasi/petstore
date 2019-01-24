@@ -1,9 +1,10 @@
-package com.matera.cursoferias.petstore;
+package com.matera.cursoferias.printer;
 
-import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 @Component
+@Profile("en")
 public class PrinterEnglish implements Printer {
 
 	@Override
