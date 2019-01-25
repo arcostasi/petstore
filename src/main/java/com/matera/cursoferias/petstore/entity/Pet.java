@@ -11,11 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Pet {
-
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
+public class Pet extends BaseEntity {
 	
 	@Column(length=50, nullable=false)
 	private String nome;
@@ -30,14 +26,6 @@ public class Pet {
 	@ManyToOne
 	@JoinColumn(name="id_especie", nullable=false)
 	private Especie especie;
-	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getNome() {
 		return nome;

@@ -10,9 +10,6 @@ public class PetstoreApplication {
 		
 		SpringApplication.run(PetstoreApplication.class, args);
 		
-//		ConfigurableApplicationContext context = SpringApplication.run(PetstoreApplication.class, args);
-//		Printer bean = (Printer) context.getBean(Printer.class);
-//		bean.print();
 	}
 
 }
