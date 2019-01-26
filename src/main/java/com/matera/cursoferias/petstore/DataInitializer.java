@@ -3,9 +3,7 @@ package com.matera.cursoferias.petstore;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
-//import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -123,15 +121,6 @@ public class DataInitializer implements CommandLineRunner {
 		servicoBusiness.save(servico4);
 		
 		System.out.println("Criação dos dados finalizada.\n");
-		
-		List<Pet> pets = petBusiness.findAll();
-		
-		System.out.println("Lista de Pets:\n");
-		
-		for (Pet pet : pets ) {
-			System.out.println("Pet Id: " + pet.getId());
-			System.out.println("Pet Nome: " + pet.getNome() + "\n");
-		}
 	}
 
 }

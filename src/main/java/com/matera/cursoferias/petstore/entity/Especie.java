@@ -2,9 +2,6 @@ package com.matera.cursoferias.petstore.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 @Entity(name="Especie")
 public class Especie extends BaseEntity {

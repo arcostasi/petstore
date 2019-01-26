@@ -1,10 +1,10 @@
 package com.matera.cursoferias.petstore.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Cliente extends BaseEntity {
@@ -12,12 +12,23 @@ public class Cliente extends BaseEntity {
 	@Column(length=50, nullable=false)
 	private String nome;
 
+	@OneToMany(mappedBy = "cliente")
+	private List<Pet> pets;
+	
 	public String getNome() {
 		return nome;
 	}
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	
+	public List<Pet> getPets() {
+		return pets;
+	}
+
+	public void setPets(List<Pet> pets) {
+		this.pets = pets;
 	}
 
 }
