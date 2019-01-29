@@ -5,27 +5,16 @@ import java.time.LocalDate;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class PetResponseDTO {
+public class PetRequestDTO {
 
-	private Long id;
 	private String nome;
-	
+
 	@JsonFormat(pattern = "dd/MM/yyy")
 	private LocalDate dataNascimento;
 	
-	@JsonProperty("especie")
-	private EspecieResponseDTO especie;
-	
-	@JsonProperty("cliente")
-	private ClienteResponseDTO cliente;
-	
-	public Long getId() {
-		return id;
-	}
+	private Long idEspecie;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+	private Long idCliente;
 
 	public String getNome() {
 		return nome;
@@ -42,21 +31,21 @@ public class PetResponseDTO {
 	public void setDataNascimento(LocalDate dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
-
-	public EspecieResponseDTO getEspecie() {
-		return especie;
+	
+	public Long getIdEspecie() {
+		return idEspecie;
 	}
 
-	public void setEspecie(EspecieResponseDTO especie) {
-		this.especie = especie;
+	public void setIdEspecie(Long idEspecie) {
+		this.idEspecie = idEspecie;
 	}
 
-	public ClienteResponseDTO getCliente() {
-		return cliente;
+	public Long getIdCliente() {
+		return idCliente;
 	}
 
-	public void setCliente(ClienteResponseDTO cliente) {
-		this.cliente = cliente;
+	public void setIdCliente(Long idCliente) {
+		this.idCliente = idCliente;
 	}
-
+	
 }

@@ -5,9 +5,8 @@ import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class ServicoResponseDTO {
+public class ServicoRequestDTO {
 
-	private Long id;
 	private String observacao;
 	
 	@JsonFormat(pattern = "dd/MM/yyy HH:mm:ss")
@@ -15,16 +14,8 @@ public class ServicoResponseDTO {
 	
 	private String tipoServico;
 	private BigDecimal valor;
-	private PetResponseDTO pet;
+	private Long idPet;
 	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public String getObservacao() {
 		return observacao;
 	}
@@ -57,12 +48,12 @@ public class ServicoResponseDTO {
 		this.valor = valor;
 	}
 	
-	public PetResponseDTO getPet() {
-		return pet;
+	public Long getIdPet() {
+		return idPet;
 	}
 	
-	public void setPet(PetResponseDTO pet) {
-		this.pet = pet;
+	public void setIdPet(Long idPet) {
+		this.idPet = idPet;
 	}
-	
+
 }

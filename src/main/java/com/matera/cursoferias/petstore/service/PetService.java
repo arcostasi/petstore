@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.matera.cursoferias.petstore.business.PetBusiness;
+import com.matera.cursoferias.petstore.dto.PetRequestDTO;
 import com.matera.cursoferias.petstore.dto.PetResponseDTO;
 import com.matera.cursoferias.petstore.entity.Pet;
 
@@ -25,11 +26,8 @@ public class PetService implements PetServiceInterface {
 	@Override
 	public List<PetResponseDTO> findAll() {
 		List<Pet> pets = petBusiness.findAll();
-		List<PetResponseDTO> result = new ArrayList<>();
 		
-		pets.forEach(pet -> result.add(convertEntityToResponseDTO(pet)));
-		
-		return result;
+		return convertListEntityToListResponseDTO(pets);
 	}
 
 	@Override
@@ -37,6 +35,11 @@ public class PetService implements PetServiceInterface {
 		Pet pet = petBusiness.findById(id);
 		
 		return convertEntityToResponseDTO(pet);
+	}
+	
+	@Override
+	public Pet findEntityById(Long id) {
+		return petBusiness.findById(id);
 	}
 
 	@Override
@@ -52,4 +55,36 @@ public class PetService implements PetServiceInterface {
 		return petResponseDTO;
 	}
 
+	@Override
+	public PetResponseDTO save(Long id, PetRequestDTO requestDTO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deleteById(Long id) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public Pet convertRequestDTOToEntity(Long id, PetRequestDTO requestDTO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public List<PetResponseDTO> findByEspecie_Id(Long idEspecie) {
+		List<Pet> especies = petBusiness.findByEspecie_Id(idEspecie);
+		
+		return convertListEntityToListResponseDTO(especies);
+	}
+
+	private List<PetResponseDTO> convertListEntityToListResponseDTO(List<Pet> pets) {
+		List<PetResponseDTO> result = new ArrayList<>();
+		
+		pets.forEach(pet -> result.add(convertEntityToResponseDTO(pet)));
+		
+		return result;
+	}
+	
 }

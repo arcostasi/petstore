@@ -41,4 +41,8 @@ public class PetBusiness implements PetBusinessInterface {
 		petRepository.deleteById(id);
 	}
 
+	@Override
+	public List<Pet> findByEspecie_Id(Long idEspecie) {
+		return petRepository.findByEspecie_Id(idEspecie);
+	}
 }
