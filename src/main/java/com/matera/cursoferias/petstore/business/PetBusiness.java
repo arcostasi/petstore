@@ -45,4 +45,9 @@ public class PetBusiness implements PetBusinessInterface {
 	public List<Pet> findByEspecie_Id(Long idEspecie) {
 		return petRepository.findByEspecie_Id(idEspecie);
 	}
+
+	@Override
+	public List<Pet> findByCliente_Id(Long idCliente) {
+		return petRepository.findByCliente_Id(idCliente);
+	}
 }

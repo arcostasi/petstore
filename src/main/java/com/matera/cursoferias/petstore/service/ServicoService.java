@@ -1,5 +1,6 @@
 package com.matera.cursoferias.petstore.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +47,34 @@ public class ServicoService implements ServicoServiceInterface {
 	}
 
 	@Override
+	public ServicoResponseDTO save(Long id, ServicoRequestDTO requestDTO) {
+		Servico servico = convertRequestDTOToEntity(id, requestDTO);
+		
+		servico = servicoBusiness.save(servico);
+		
+		return convertEntityToResponseDTO(servico);
+	}
+
+	@Override
+	public void deleteById(Long id) {
+		servicoBusiness.deleteById(id);
+	}
+	
+	@Override
+	public List<ServicoResponseDTO> findByPet_Id(Long idPet) {
+		List<Servico> servicos = servicoBusiness.findByPet_Id(idPet);
+
+		return convertListEntityToListResponseDTO(servicos);
+	}
+	
+	@Override
+	public List<ServicoResponseDTO> findByDataHoraBetween(LocalDate dataInicial, LocalDate dataFinal) {
+		List<Servico> servicos = servicoBusiness.findByDataHoraBetween(dataInicial.atTime(0, 0, 0), dataFinal.atTime(23, 59, 59));
+		
+		return convertListEntityToListResponseDTO(servicos);
+	}
+
+	@Override
 	public ServicoResponseDTO convertEntityToResponseDTO(Servico entity) {
 		ServicoResponseDTO servicoResponseDTO = new ServicoResponseDTO();
 		
@@ -60,27 +89,24 @@ public class ServicoService implements ServicoServiceInterface {
 	}
 
 	@Override
-	public ServicoResponseDTO save(Long id, ServicoRequestDTO requestDTO) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void deleteById(Long id) {
-		servicoBusiness.deleteById(id);
-	}
-
-	@Override
 	public Servico convertRequestDTOToEntity(Long id, ServicoRequestDTO requestDTO) {
 		Servico servico = id == null ? new Servico() : servicoBusiness.findById(id);
 		
 		servico.setDataHora(LocalDateTime.now());
 		servico.setObservacao(requestDTO.getObservacao());
 		servico.setPet(petService.findEntityById(requestDTO.getIdPet()));
-		// servico.setTipoServico(TipoServico.valueOf(requestDTO.getIdTipoServico()));
+		servico.setTipoServico(TipoServico.valueOf(requestDTO.getIdTipoServico()));
 		servico.setValor(requestDTO.getValor());
 		
-		return null;
+		return servico;
+	}
+	
+	private List<ServicoResponseDTO> convertListEntityToListResponseDTO(List<Servico> servicos) {
+		List<ServicoResponseDTO> result = new ArrayList<>();
+		
+		servicos.forEach(servico -> result.add(convertEntityToResponseDTO(servico)));
+		
+		return result;
 	}
 	
 }

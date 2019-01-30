@@ -10,4 +10,6 @@ public interface PetServiceInterface extends CrudServiceInterface<PetRequestDTO,
 	
 	List<PetResponseDTO> findByEspecie_Id(Long idEspecie);
 	
+	List<PetResponseDTO> findByCliente_Id(Long idCliente);
+	
 }

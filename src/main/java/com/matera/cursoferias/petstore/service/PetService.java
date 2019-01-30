@@ -78,6 +78,14 @@ public class PetService implements PetServiceInterface {
 		
 		return convertListEntityToListResponseDTO(especies);
 	}
+	
+	@Override
+	public List<PetResponseDTO> findByCliente_Id(Long idCliente) {
+		List<Pet> clientes = petBusiness.findByCliente_Id(idCliente);
+		
+		return convertListEntityToListResponseDTO(clientes);
+	}
+	
 
 	private List<PetResponseDTO> convertListEntityToListResponseDTO(List<Pet> pets) {
 		List<PetResponseDTO> result = new ArrayList<>();

@@ -3,7 +3,6 @@ package com.matera.cursoferias.petstore.controller;
 import java.net.URI;
 import java.util.List;
 
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,7 +24,7 @@ import com.matera.cursoferias.petstore.service.PetService;
 
 @RestController
 @RequestMapping("/api/v1/especies")
-public class EspecieController {
+public class EspecieController extends BaseController {
 
 	private EspecieService especieService;
 	private PetService petService;

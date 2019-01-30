@@ -13,6 +13,8 @@ public interface PetRepository extends CrudRepository<Pet, Long> {
 
 	List<Pet> findByEspecie_Id(Long id);
 	
+	List<Pet> findByCliente_Id(Long id);
+	
 	List<Pet> findByIdAndDataNascimento(Long id, LocalDate dataNascimento);
 		
 	@Query("SELECT p FROM Pet p WHERE p.id = ?1")

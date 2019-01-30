@@ -1,5 +1,6 @@
 package com.matera.cursoferias.petstore.business;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +40,16 @@ public class ServicoBusiness implements ServicoBusinessInterface {
 	@Override
 	public void deleteById(Long id) {
 		servicoRepository.deleteById(id);
+	}
+
+	@Override
+	public List<Servico> findByPet_Id(Long id) {
+		return servicoRepository.findByPet_Id(id);
+	}
+
+	@Override
+	public List<Servico> findByDataHoraBetween(LocalDateTime dataInicial, LocalDateTime dataFinal) {
+		return servicoRepository.findByDataHoraBetween(dataInicial, dataFinal);
 	}
 
 }

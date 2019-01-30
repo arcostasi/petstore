@@ -8,4 +8,6 @@ public interface PetBusinessInterface extends CrudBusinessInterface<Pet, Long> {
 
 	List<Pet> findByEspecie_Id(Long id);
 	
+	List<Pet> findByCliente_Id(Long id);
+	
 }
