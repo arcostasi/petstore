@@ -1,8 +1,12 @@
 package com.matera.cursoferias.petstore.controller;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
 
+import javax.validation.Valid;
+
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -31,7 +36,7 @@ public class ServicoController extends BaseController {
 	}
 	
 	@PostMapping()
-	public ResponseEntity<Void> save(@RequestBody ServicoRequestDTO servicoRequestDTO) {
+	public ResponseEntity<Void> save(@Valid @RequestBody ServicoRequestDTO servicoRequestDTO) {
 		ServicoResponseDTO servicoResponseDTO = servicoService.save(null, servicoRequestDTO);
 		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -44,8 +49,16 @@ public class ServicoController extends BaseController {
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Void> update(@PathVariable("id") Long id, @RequestBody ServicoRequestDTO servicoRequestDTO) {
+	public ResponseEntity<Void> update(@PathVariable("id") Long id, @Valid @RequestBody ServicoRequestDTO servicoRequestDTO) {
 		servicoService.save(id, servicoRequestDTO);
+		
+		return ResponseEntity.noContent()
+							 .build();
+	}
+	
+	@DeleteMapping(value = "/{id}")
+	public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
+		servicoService.deleteById(id);
 		
 		return ResponseEntity.noContent()
 							 .build();
@@ -67,11 +80,13 @@ public class ServicoController extends BaseController {
 							 .body(servicosResponseDTO);
 	}
 	
-	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Void> deleteById(@PathVariable("id") Long id) {
-		servicoService.deleteById(id);
+	@RequestMapping(value = "/buscaPorData", method = RequestMethod.GET)
+	public ResponseEntity<List<ServicoResponseDTO>> findByData(@RequestParam(name = "dataInicial", required = true) @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate dataInicial,
+			                                                   @RequestParam(name = "dataFinal", required = true) @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate dataFinal) {
+		List<ServicoResponseDTO> servicos = servicoService.findByDataHoraBetween(dataInicial, dataFinal);
 		
-		return ResponseEntity.noContent()
-							 .build();
+		return ResponseEntity.status(HttpStatus.OK)
+							 .body(servicos);
 	}
+	
 }

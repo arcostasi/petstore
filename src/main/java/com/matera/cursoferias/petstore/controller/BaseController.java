@@ -32,6 +32,6 @@ public class BaseController {
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler({MethodArgumentNotValidException.class})
 	public ExceptionResponseDTO handlerMethodArgumentNotValidException(MethodArgumentNotValidException e) {
-		return ExceptionResponseDTO.withError(e.getMessage());
+		return ExceptionResponseDTO.withError(e.getBindingResult().getFieldErrors());
 	}	
 }

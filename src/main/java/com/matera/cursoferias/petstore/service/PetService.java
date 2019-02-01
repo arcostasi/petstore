@@ -43,35 +43,19 @@ public class PetService implements PetServiceInterface {
 	}
 
 	@Override
-	public PetResponseDTO convertEntityToResponseDTO(Pet entity) {
-		PetResponseDTO petResponseDTO = new PetResponseDTO();
-		
-		petResponseDTO.setId(entity.getId());
-		petResponseDTO.setNome(entity.getNome());
-		petResponseDTO.setDataNascimento(entity.getDataNascimento());
-		petResponseDTO.setEspecie(especieService.convertEntityToResponseDTO(entity.getEspecie()));
-		petResponseDTO.setCliente(clienteService.convertEntityToResponseDTO(entity.getCliente()));
-		
-		return petResponseDTO;
-	}
-
-	@Override
 	public PetResponseDTO save(Long id, PetRequestDTO requestDTO) {
-		// TODO Auto-generated method stub
-		return null;
+		Pet pet = convertRequestDTOToEntity(id, requestDTO);
+		
+		pet = petBusiness.save(pet);
+		
+		return convertEntityToResponseDTO(pet);
 	}
 
 	@Override
 	public void deleteById(Long id) {
-		// TODO Auto-generated method stub
+		petBusiness.deleteById(id);
 	}
 
-	@Override
-	public Pet convertRequestDTOToEntity(Long id, PetRequestDTO requestDTO) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	@Override
 	public List<PetResponseDTO> findByEspecie_Id(Long idEspecie) {
 		List<Pet> especies = petBusiness.findByEspecie_Id(idEspecie);
@@ -86,6 +70,30 @@ public class PetService implements PetServiceInterface {
 		return convertListEntityToListResponseDTO(clientes);
 	}
 	
+	@Override
+	public Pet convertRequestDTOToEntity(Long id, PetRequestDTO requestDTO) {
+		Pet pet = id == null ? new Pet() : petBusiness.findById(id);
+		
+		pet.setCliente(clienteService.findEntityById(requestDTO.getIdCliente()));
+		pet.setDataNascimento(requestDTO.getDataNascimento());
+		pet.setEspecie(especieService.findEntityById(requestDTO.getIdEspecie()));
+		pet.setNome(requestDTO.getNome());
+		
+		return pet;
+	}
+	
+	@Override
+	public PetResponseDTO convertEntityToResponseDTO(Pet entity) {
+		PetResponseDTO petResponseDTO = new PetResponseDTO();
+		
+		petResponseDTO.setId(entity.getId());
+		petResponseDTO.setNome(entity.getNome());
+		petResponseDTO.setDataNascimento(entity.getDataNascimento());
+		petResponseDTO.setEspecie(especieService.convertEntityToResponseDTO(entity.getEspecie()));
+		petResponseDTO.setCliente(clienteService.convertEntityToResponseDTO(entity.getCliente()));
+		
+		return petResponseDTO;
+	}
 
 	private List<PetResponseDTO> convertListEntityToListResponseDTO(List<Pet> pets) {
 		List<PetResponseDTO> result = new ArrayList<>();

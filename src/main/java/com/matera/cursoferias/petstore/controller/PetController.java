@@ -3,6 +3,8 @@ package com.matera.cursoferias.petstore.controller;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -36,7 +38,7 @@ public class PetController extends BaseController {
 	}
 
 	@PostMapping()
-	public ResponseEntity<Void> save(@RequestBody PetRequestDTO petRequestDTO) {
+	public ResponseEntity<Void> save(@Valid @RequestBody PetRequestDTO petRequestDTO) {
 		PetResponseDTO petResponseDTO = petService.save(null, petRequestDTO);
 		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -48,8 +50,8 @@ public class PetController extends BaseController {
 							 .build();
 	}
 	
-	@PutMapping()
-	public ResponseEntity<Void> update(@PathVariable("id") Long id, @RequestBody PetRequestDTO petRequestDTO) {
+	@PutMapping(value = "/{id}")
+	public ResponseEntity<Void> update(@PathVariable("id") Long id, @Valid @RequestBody PetRequestDTO petRequestDTO) {
 		petService.save(id, petRequestDTO);
 		
 		return ResponseEntity.noContent()

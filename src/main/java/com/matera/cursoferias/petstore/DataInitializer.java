@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import com.matera.cursoferias.petstore.business.ClienteBusiness;
 import com.matera.cursoferias.petstore.business.EspecieBusiness;
 import com.matera.cursoferias.petstore.business.PetBusiness;
 import com.matera.cursoferias.petstore.business.ServicoBusiness;
@@ -15,22 +16,21 @@ import com.matera.cursoferias.petstore.entity.Especie;
 import com.matera.cursoferias.petstore.entity.Pet;
 import com.matera.cursoferias.petstore.entity.Servico;
 import com.matera.cursoferias.petstore.entity.TipoServico;
-import com.matera.cursoferias.petstore.repository.ClienteRepository;
 
 @Component
 public class DataInitializer implements CommandLineRunner {
 	
 	private final EspecieBusiness especieBusiness;
-	private final ClienteRepository clienteBusiness;
+	private final ClienteBusiness clienteBusiness;
 	private final PetBusiness petBusiness;
 	private final ServicoBusiness servicoBusiness;
 	
 	public DataInitializer(EspecieBusiness especieBusiness, 
-			ClienteRepository clienteRepository,
+			ClienteBusiness clienteBusiness,
 			PetBusiness petBusiness,
 			ServicoBusiness servicoBusiness) {
 		this.especieBusiness = especieBusiness;
-		this.clienteBusiness = clienteRepository;
+		this.clienteBusiness = clienteBusiness;
 		this.petBusiness = petBusiness;
 		this.servicoBusiness = servicoBusiness;
 	}

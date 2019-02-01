@@ -64,8 +64,11 @@ public class ClienteService implements ClienteServiceInterface {
 
 	@Override
 	public Cliente convertRequestDTOToEntity(Long id, ClienteRequestDTO requestDTO) {
-
-		return null;
+		Cliente cliente = id == null ? new Cliente() : clienteBusiness.findById(id);
+		
+		cliente.setNome(requestDTO.getNome());
+		
+		return cliente;
 	}
 
 	private List<ClienteResponseDTO> convertListEntityToListResponseDTO(List<Cliente> clientes) {

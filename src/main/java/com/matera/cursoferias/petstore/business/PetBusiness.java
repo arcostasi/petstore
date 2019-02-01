@@ -6,15 +6,20 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.matera.cursoferias.petstore.entity.Pet;
+import com.matera.cursoferias.petstore.entity.Servico;
+import com.matera.cursoferias.petstore.exception.ResourceBadRequestException;
+import com.matera.cursoferias.petstore.exception.ResourceNotFoundException;
 import com.matera.cursoferias.petstore.repository.PetRepository;
 
 @Component
 public class PetBusiness implements PetBusinessInterface {
 
 	private PetRepository petRepository;
+	private ServicoBusiness servicoBusiness;
 	
-	public PetBusiness(PetRepository petRepository) {
+	public PetBusiness(PetRepository petRepository, ServicoBusiness servicoBusiness) {
 		this.petRepository = petRepository;
+		this.servicoBusiness = servicoBusiness;
 	}
 
 	@Override
@@ -33,11 +38,25 @@ public class PetBusiness implements PetBusinessInterface {
 
 	@Override
 	public Pet findById(Long id) {
-		return petRepository.findById(id).orElse(null);
+		Pet pet = petRepository.findById(id).orElse(null);
+		
+		if (pet == null) {
+			throw new ResourceNotFoundException(String.format("Pet %d não encontrado!", id));
+		}
+		
+		return pet; 
 	}
 
 	@Override
 	public void deleteById(Long id) {
+		findById(id);
+		
+		List<Servico> servicos = servicoBusiness.findByPet_Id(id);
+		
+		if (!servicos.isEmpty()) {
+			throw new ResourceBadRequestException(String.format("Pet %d não pode ser excluído pois possui Serviços!", id));
+		}
+			
 		petRepository.deleteById(id);
 	}
 

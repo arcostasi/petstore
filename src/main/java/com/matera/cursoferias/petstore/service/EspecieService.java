@@ -42,16 +42,6 @@ public class EspecieService implements EspecieServiceInterface {
 	}
 
 	@Override
-	public EspecieResponseDTO convertEntityToResponseDTO(Especie entity) {
-		EspecieResponseDTO especieResponseDTO = new EspecieResponseDTO();
-		
-		especieResponseDTO.setId(entity.getId());
-		especieResponseDTO.setDescricao(entity.getDescricao());
-		
-		return especieResponseDTO;
-	}
-
-	@Override
 	public EspecieResponseDTO save(Long id, EspecieRequestDTO requestDTO) {
 		Especie especie = convertRequestDTOToEntity(id, requestDTO);
 		
@@ -72,6 +62,16 @@ public class EspecieService implements EspecieServiceInterface {
 		especie.setDescricao(requestDTO.getDescricao());
 		
 		return especie;
+	}
+	
+	@Override
+	public EspecieResponseDTO convertEntityToResponseDTO(Especie entity) {
+		EspecieResponseDTO especieResponseDTO = new EspecieResponseDTO();
+		
+		especieResponseDTO.setId(entity.getId());
+		especieResponseDTO.setDescricao(entity.getDescricao());
+		
+		return especieResponseDTO;
 	}
 
 }

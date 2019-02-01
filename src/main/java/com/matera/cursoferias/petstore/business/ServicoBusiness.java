@@ -7,12 +7,14 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.matera.cursoferias.petstore.entity.Servico;
+import com.matera.cursoferias.petstore.exception.ResourceNotFoundException;
 import com.matera.cursoferias.petstore.repository.ServicoRepository;
 
 @Component
 public class ServicoBusiness implements ServicoBusinessInterface {
 
 	private ServicoRepository servicoRepository;
+
 	
 	public ServicoBusiness(ServicoRepository servicoRepository) {
 		this.servicoRepository = servicoRepository;
@@ -34,11 +36,19 @@ public class ServicoBusiness implements ServicoBusinessInterface {
 
 	@Override
 	public Servico findById(Long id) {
-		return servicoRepository.findById(id).orElse(null);
+		Servico servico = servicoRepository.findById(id).orElse(null);
+		
+		if (servico == null) {
+			throw new ResourceNotFoundException(String.format("Serviço %d não encontrado!", id));
+		}
+		
+		return servico; 
 	}
 
 	@Override
 	public void deleteById(Long id) {
+		findById(id);
+		
 		servicoRepository.deleteById(id);
 	}
 

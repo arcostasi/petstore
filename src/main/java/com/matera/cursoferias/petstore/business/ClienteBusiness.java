@@ -54,7 +54,7 @@ public class ClienteBusiness implements ClienteBusinessInterface {
 		List<Pet> pets = petBusiness.findByCliente_Id(id);
 		
 		if (!pets.isEmpty()) {
-			throw new ResourceBadRequestException(String.format("Cliente %d não pode ser excluído pois possuí %d pets", id, pets.size())); 
+			throw new ResourceBadRequestException(String.format("Cliente %d não pode ser excluído pois possui Pets!", id, pets.size())); 
 		}
 		
 		clienteRepository.deleteById(id);
