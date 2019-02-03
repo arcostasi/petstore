@@ -1,9 +1,5 @@
 ## Curso de Férias Matera - Construindo APIs REST com Spring
 
-```
-
-```
-
 * ## Estrutura das aulas
 
   * **Aula 1**
